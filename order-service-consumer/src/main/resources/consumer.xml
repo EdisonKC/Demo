@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://code.alibabatech.com/schema/dubbo
+                           http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置扫描上下文，有@Component、@Controller、@Service 、@Repository等注解修饰的Java类，则将这些类注册为spring容器中的bean    /-->
+    <context:component-scan base-package="com.edison.station.service.impl"></context:component-scan>
+    <!--配置消费者名称    -->
+    <dubbo:application name="order-service-consumer"></dubbo:application>
+    <!--配置注册中心的地震    -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"></dubbo:registry>
+    <!--配置调用服务的名称    -->
+    <dubbo:reference interface="com.edison.station.service.UserService" id="UserService"></dubbo:reference>
+    <!--监控中心配置    -->
+    <dubbo:monitor protocol="registry"></dubbo:monitor>
+
+</beans>
